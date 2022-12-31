@@ -239,4 +239,5 @@ df.to_csv('C:/Users/haeni_kim/Desktop/PROJECT/multi_project/melon_inform.csv',en
 ## 8. 회고 / 느낀점 / 현황판 / 그 외 트러블 슈팅
 >프로젝트 개발 회고 글: https://bolder-starburst-a73.notion.site/221108-9cab6c3034624797b2d3c3179e79c282
 <br>
+
 >프로젝트 현황판 / 그 외 트러블 슈팅: https://bolder-starburst-a73.notion.site/0ddbb2be0a474d35a4a957278980445b
