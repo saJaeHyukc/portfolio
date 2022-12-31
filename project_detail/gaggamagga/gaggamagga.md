@@ -567,4 +567,5 @@ if BlockedCountryIP.objects.filter(user=self.target_user, country=country).exist
 ## 9. 회고 / 느낀점 / 현황판 / 그 외 트러블 슈팅
 >프로젝트 개발 회고 글: https://bolder-starburst-a73.notion.site/221229-509674920cc44056b5a06ab88d2c4f73
 <br>
+
 >프로젝트 현황판 / 그 외 트러블 슈팅: https://bolder-starburst-a73.notion.site/060c8fd4af5845df8770441ef69bdaf5
