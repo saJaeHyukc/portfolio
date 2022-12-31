@@ -176,4 +176,5 @@ user_id = force_str(urlsafe_base64_decode(uidb64))
 ## 7. 회고 / 느낀점 / 현황판 / 그 외 트러블 슈팅
 >프로젝트 개발 회고 글: https://bolder-starburst-a73.notion.site/221128-9950cd25bced4f6e8e71092ddf86f889
 <br>
+
 >프로젝트 현황판 / 그 외 트러블 슈팅: https://bolder-starburst-a73.notion.site/c4e68e7765b64fd3bef2fb0071fb8996
