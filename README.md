@@ -1,54 +1,45 @@
 # 사재혁 
->캐치 프레이즈 작성하기!
-
-</br>
-
-## :pushpin: Intro
-(여기에 자기 소개)-
-- 이름: 사재혁
-- 군필여부: 공군 만기전역
-- 취미: 자전거, 피아노, 게임
-
-</br>
-
-## :pushpin: Contact
-- 이메일: wogur981208@gmail.com
-- 블로그: https://ryan-han.com
-- 깃헙: https://github.com/saJaeHyukc
-
-</br>
-
 ## :pushpin: Projects
-### 1. [goQuality](https://github.com/Integerous/goQuality)
->고퀄리티 개발 컨텐츠 공유 서비스 (개인 프로젝트)  
->개발 기간: 2019.2.18 ~ 2019.4.5  
+### 1. [가까? 마까?](https://github.com/1TEAM12/GaGgaMaGga_BE)
+>제주도 맛집 추천 플랫폼 (팀 프로젝트)  
+>개발 기간: 2022.12.01 ~ 2022.12.29  
 >  
 >기술 스택:  
->Java 8 / Spring Boot / Gradle / Spring Data JPA / QueryDSL  
->H2 / MySQL / Spring Security / Jsoup / Vue.js / Element U  
+>Python 3.10.8 / Django 4.1.3 / DRF 3.14.0 / Django simple JWT 5.2.2 / 
+> Django Channel 4.0.0 / AWS EC2 / AWS  Load Balancer / AWS CloudFront / AWS S3 / Docker 20.10.12 / Docker Compose 2.11.2 / Gunicorn / Nginx 1.23.2 / Daphne / Redis 7.0.7
+>Github / Git / Github Action / PostgreSQL 14.5 / ....
 >  
 >[프로젝트 상세 설명](https://github.com/Integerous/goQuality) 참고
 
 ---
 
-### 2. [두 번째 프로젝트]()
->두 번째 프로젝트 간략 소개  (팀 프로젝트)  
->개발 기간: 2020.7.18 ~ 2020.11.5  
+### 2. [유화 경매 프로젝트](https://github.com/1TEAM12/Oil_Paint_Auction_Back)
+>유화 제작 경매 서비스 (팀 프로젝트)  
+>개발 기간: 2022.11.22 ~ 2022.11.28  
 >  
 >기술 스택:  
->Java 8 / Spring Boot / Gradle / Spring Data JPA / QueryDSL  
->H2 / MySQL / Spring Security / Jsoup / Vue.js / Element U  
+>Python 3.10.7 / Django 4.1.3  / DRF 3.14.0 / Django simple JWT 5.2.2 / SQLlite / ...
 >  
 >[프로젝트 상세 설명](https://github.com/Integerous/goQuality) 참고
 
 ---
 
-### 3. [세 번째 프로젝트]()
->세 번째 프로젝트 간략 소개  (개인 프로젝트)  
->개발 기간: 2018.1.18 ~ 2018.4.5  
+### 3. [노래 추천 프로젝트](https://github.com/1TEAM12/Music_Recommend_Back)
+>노래 추천 서비스 (팀 프로젝트)  
+>개발 기간: 2022.11.2 ~ 2022.11.8  
 >  
 >기술 스택:  
->Java 8 / Spring Boot / Gradle / Spring Data JPA / QueryDSL  
->H2 / MySQL / Spring Security / Jsoup / Vue.js / Element U  
+>Python 3.10.7 / Django 4.1.3  / DRF 3.14.0 / Django simple JWT 5.2.2 / SQLlite / ...
+>  
+>[프로젝트 상세 설명](https://github.com/Integerous/goQuality) 참고
+
+---
+
+### 4. [인스타 클론코딩](https://github.com/1TEAM12/insta_clonecoding)
+>인스타 클론코딩 (팀 프로젝트)  
+>개발 기간: 2022.9.29 ~ 2022.10.5  
+>  
+>기술 스택:  
+>Python 3.10.7 / Django 4.1.1 / Django-allauth 0.51.0 / SQLlite / ...
 >  
 >[프로젝트 상세 설명](https://github.com/Integerous/goQuality) 참고
