@@ -34,7 +34,7 @@
   - PostgreSQL 14.5
 #### `Infra`
   - AWS EC2
-  - AWS  Load Balancer
+  - AWS Route 53
   - AWS CloudFront
   - AWS S3
   - Docker 20.10.12
