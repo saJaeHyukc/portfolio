@@ -24,7 +24,7 @@
 
 ---
 
-### 3. [노래 추천 프로젝트](https://github.com/1TEAM12/Music_Recommend_Back)(설득)
+### 3. [노래 추천 프로젝트](https://github.com/1TEAM12/Music_Recommend_Back)(갈등)
 >노래 추천 서비스 (팀 프로젝트)  
 >개발 기간: 2022.11.2 ~ 2022.11.8  
 >  
