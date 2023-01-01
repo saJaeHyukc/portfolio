@@ -92,7 +92,7 @@
 - serializer를 검증할 때 dict로 request를 넘겨주면 된다는 사실을 알아 구현했습니다.
 
 <details>
-<summary><b>크롤링 코드 일부</b></summary>
+<summary><b>코드</b></summary>
 <div markdown="1">
 
 ~~~python
