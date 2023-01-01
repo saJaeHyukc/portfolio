@@ -24,7 +24,7 @@
 
 ---
 
-### 3. [노래 추천 프로젝트](https://github.com/1TEAM12/Music_Recommend_Back)설득
+### 3. [노래 추천 프로젝트](https://github.com/1TEAM12/Music_Recommend_Back)(설득)
 >노래 추천 서비스 (팀 프로젝트)  
 >개발 기간: 2022.11.2 ~ 2022.11.8  
 >  
@@ -35,7 +35,7 @@
 
 ---
 
-### 4. [인스타 클론코딩](https://github.com/1TEAM12/insta_clonecoding)성장
+### 4. [인스타 클론코딩](https://github.com/1TEAM12/insta_clonecoding)(성장)
 >인스타 클론코딩 (팀 프로젝트 / 개인 프로젝트)  
 >개발 기간: 2022.9.29 ~ 2022.10.5  
 >  
