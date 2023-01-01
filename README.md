@@ -1,6 +1,6 @@
 # 사재혁 프로젝트
 ## :pushpin: Projects
-### 1. [가까? 마까?](https://github.com/1TEAM12/GaGgaMaGga_BE)
+### 1. [가까? 마까?](https://github.com/1TEAM12/GaGgaMaGga_BE)(결과)
 >제주도 맛집 추천 플랫폼 (팀 프로젝트)  
 >개발 기간: 2022.12.01 ~ 2022.12.29  
 >  
