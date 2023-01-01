@@ -1,6 +1,6 @@
 # 사재혁 프로젝트
 ## :pushpin: Projects
-### 1. [가까? 마까?](https://github.com/1TEAM12/GaGgaMaGga_BE)(결과)
+### 1. [가까? 마까?](https://github.com/1TEAM12/GaGgaMaGga_BE)(팀원의 결과)
 >제주도 맛집 추천 플랫폼 (팀 프로젝트)  
 >개발 기간: 2022.12.01 ~ 2022.12.29  
 >  
@@ -13,7 +13,7 @@
 
 ---
 
-### 2. [노래 추천 프로젝트](https://github.com/1TEAM12/Music_Recommend_Back)(갈등)
+### 2. [노래 추천 프로젝트](https://github.com/1TEAM12/Music_Recommend_Back)(팀원 간의 갈등)
 >노래 추천 서비스 (팀 프로젝트)  
 >개발 기간: 2022.11.2 ~ 2022.11.8  
 >  
@@ -24,7 +24,7 @@
 
 ---
 
-### 3. [인스타 클론코딩](https://github.com/1TEAM12/insta_clonecoding)(성장)
+### 3. [인스타 클론코딩](https://github.com/1TEAM12/insta_clonecoding)(팀원과 성장)
 >인스타 클론코딩 (팀 프로젝트 / 개인 프로젝트)  
 >개발 기간: 2022.9.29 ~ 2022.10.5  
 >  
