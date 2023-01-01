@@ -16,6 +16,7 @@
 - Docker, AWS 배포
 - CI/CD 구축
 - 코드 리팩토링 / Swagger 적용
+- 맡은 기능 프론트 연동
 
 </div>
 </details>
