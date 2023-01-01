@@ -117,6 +117,7 @@
 <details>
 <summary style="font-size:18px"><b>6.1. Email 전송 속도 향상</b></summary>
 <div markdown="1">
+<p>
 - 저는 회원기능에 이메일 인증 기능을 구현했습니다. Django Email 전송 속도는 하나의 스레드를 사용함으로 많이 느렸습니다.
 
 <br>
@@ -169,6 +170,7 @@ def send_email(message):
 <details>
 <summary style="font-size:18px"><b>6.2. 네이버 SMS 401 에러</b></summary>
 <div markdown="1">
+<p>
 - 저는 회원관리 기능에 아이디 찾기를 구현하였습니다. 대부분의 사이트는 아이디 찾기를 인증번호를 이용한 로직을 많이 사용하였고 접근성이 용이한 네이버 SMS API를 사용하였습니다. 요청을 보냈을 때 401에러가 발생하였습니다.
 
 ![ex_screenshot](./img/sms_error.png)
@@ -243,6 +245,7 @@ headers = {
 <details>
 <summary style="font-size:18px"><b>6.3. 토큰 인증 에러</b></summary>
 <div markdown="1">
+<p>
 - 프론트에서 로그인 시 access token과 refresh token을 발급을 해주는데 서비스 이용 시 access token이 만료가 되었을 경우 refresh token으로 access token을 재발급 해주면 되지만 그 토큰이 유효한지 확인해주는 로직이 없었습니다.
   
 <br>
@@ -399,6 +402,7 @@ async function access_token_get() {
 <details>
 <summary style="font-size: 18px;"><b>비밀번호 변경 시 인증</b></summary>
 <div markdown="1">
+<p>
 - 비밀번호 변경 시 개인정보가 보호받지 못하는 느낌입니다. 기존 비밀번호를 입력받아 확인하는 절차가 추가되면 좋을 것 같습니다.(피드백 내용)
 
 <br>
@@ -458,6 +462,7 @@ def validate(self, data):
 
 <summary style="font-size: 18px;"><b>자신이 작성한 게시글 신고됨</b></summary>
 <div markdown="1">
+<p>
 - 작성자 게시글에 작성자가 신고할 수 있어요(피드백 내용)
 
 <br>
@@ -523,6 +528,7 @@ def post(self, request, place_id, review_id):
 <details>
 <summary style="font-size: 18px;"><b>IP 주소 차단 기능</b></summary> 
 <div markdown="1">
+<p>
 - IP 주소 차단같은 기능이 있으면 좋을 것 같아요(피드백 내용)
 <br>
 - IP의 정보를 알 수 있는 API를 활용하여 해당 나라 IP일 경우 차단되도록 기능 구현했습니다.
