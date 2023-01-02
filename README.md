@@ -13,22 +13,4 @@
 
 ---
 
-### 2. [노래 추천 프로젝트](https://github.com/1TEAM12/Music_Recommend_Back)(팀원 간의 갈등)
->노래 추천 서비스 (팀 프로젝트)  
->개발 기간: 2022.11.2 ~ 2022.11.8  
->  
->기술 스택:  
->Python 3.10.7 / Django 4.1.3  / DRF 3.14.0 / Django simple JWT 5.2.2 / SQLlite / ...
->  
->[프로젝트 상세 설명](https://github.com/saJaeHyukc/portfolio/blob/main/project_detail/music_recommend/music_recommend.md) 참고
 
----
-
-### 3. [인스타 클론코딩](https://github.com/1TEAM12/insta_clonecoding)(팀원과 성장)
->인스타 클론코딩 (팀 프로젝트 / 개인 프로젝트)  
->개발 기간: 2022.9.29 ~ 2022.10.5  
->  
->기술 스택:  
->Python 3.10.7 / Django 4.1.1 / Django-allauth 0.51.0 / SQLlite / ...
->  
->[프로젝트 상세 설명](https://github.com/saJaeHyukc/portfolio/blob/main/project_detail/insta_clone_coding/insta_clonecoding.md) 참고
