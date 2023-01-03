@@ -114,12 +114,8 @@
 </br>
 
 ## 7. 핵심 트러블 슈팅
-7.1. Email 전송 속도 향상
-
-<br>
+### 7.1. Email 전송 속도 향상
 - 저는 회원기능에 이메일 인증 기능을 구현했습니다. Django Email 전송 속도는 하나의 스레드를 사용함으로 많이 느렸습니다.
-
-<br>
 
 <details>
 <summary><b>기존 코드</b></summary>
@@ -130,13 +126,10 @@ def send_email(message):
     email = EmailMessage(subject=message["email_subject"], body=message["email_body"], to=[message["to_email"]])
     email.send()
 ~~~
-
 </div>
 </details>
 
 - 이것을 개선하기 위해 멀티스레드를 활용하여 작업가중치를 늘려 실행되지 않는 다른 스레드를 퍼뜨려 사용자에게 응답하는 경로가 실시간으로 처리하여 속도를 향상했습니다. 2.5 s -> 0.1 ms
-
-<br>
 
 <details>
 <summary><b>개선된 코드</b></summary>
@@ -164,15 +157,11 @@ def send_email(message):
 
 <br>
 
-7.2. 네이버 SMS 401 에러
-<br>
+### 7.2. 네이버 SMS 401 에러
 - 저는 회원관리 기능에 아이디 찾기를 구현하였습니다. 대부분의 사이트는 아이디 찾기를 인증번호를 이용한 로직을 많이 사용하였고 접근성이 용이한 네이버 SMS API를 사용하였습니다. 요청을 보냈을 때 401에러가 발생하였습니다.
 
 ![ex_screenshot](./img/sms_error.png)
 - 오류를 원리적으로 접근하기 위해 요청했을 때 콘솔창으로 네트워크 부분을 확인했습니다. signature-v2부분이 계속 바뀌는 것을 확인이 되었고 암호화가 되어 그 값이 바뀌는 것을 확인했습니다. 
-  
-<br>
-
 <details>
 <summary><b>기존 코드</b></summary>
 <div markdown="1">
@@ -202,8 +191,6 @@ headers = {
 
 - 네이버 SMS API를 읽어보니  x-ncp-apigw-signature-v2에서 HMAC 암호화 알고리즘은 HmacSHA256 사용한다는 것을 알았고 암호화가 된 시크릿 키로 보내야 한다는 것을 알아 개선했습니다.
 
-<br>
-
 <details>
 <summary><b>개선된 코드</b></summary>
 <div markdown="1">
@@ -232,14 +219,9 @@ headers = {
 
 </div>
 </details>
-<br>
 
-7.3. 토큰 인증 에러
-
-<br>
+### 7.3. 토큰 인증 에러
 - 프론트에서 로그인 시 access token과 refresh token을 발급을 해주는데 서비스 이용 시 access token이 만료가 되었을 경우 refresh token으로 access token을 재발급 해주면 되지만 그 토큰이 유효한지 확인해주는 로직이 없었습니다.
-  
-<br>
 
 <details>
 <summary><b>기존 코드</b></summary>
@@ -388,12 +370,8 @@ async function access_token_get() {
 
 
 ## 8. 피드백 반영
-8.1. 비밀번호 변경 시 인증
-<br>
+### 8.1. 비밀번호 변경 시 인증
 - 비밀번호 변경 시 개인정보가 보호받지 못하는 느낌입니다. 기존 비밀번호를 입력받아 확인하는 절차가 추가되면 좋을 것 같습니다.(피드백 내용)
-
-<br>
-
 <details>
 <summary><b>기존 코드</b></summary>
 <div markdown="1">
@@ -409,8 +387,6 @@ def validate(self, data):
 </details>
 
 - 해쉬 값을 확인하는 check_password 메소드를 활용하여 인증할 수 있는 기능을 추가했습니다.
-
-<br>
 
 <details>
 <summary><b>개선된 코드</b></summary>
@@ -442,14 +418,9 @@ def validate(self, data):
 
 <br>
 
-<details>
 
-8.2. 자신이 작성한 게시글 신고됨
-
-<br>
+### 8.2. 자신이 작성한 게시글 신고됨
 - 작성자 게시글에 작성자가 신고할 수 있어요(피드백 내용)
-
-<br>
 
 <details>
 <summary><b>기존 코드</b></summary>
@@ -475,8 +446,6 @@ def post(self, request, place_id, review_id):
 </details>
 
 - 요청 들어오는 유저와 작성자와 비교하여 400 status Response를 하도록 구현했습니다.
-
-<br>
 
 <details>
 <summary><b>개선된 코드</b></summary>
@@ -506,14 +475,9 @@ def post(self, request, place_id, review_id):
 
 <br>
 
-8.3. IP 주소 차단 기능
-
-<br>
+### 8.3. IP 주소 차단 기능
 - IP 주소 차단같은 기능이 있으면 좋을 것 같아요(피드백 내용)
-<br>
 - IP의 정보를 알 수 있는 API를 활용하여 해당 나라 IP일 경우 차단되도록 기능 구현했습니다.
-
-<br>
 <details>
 <summary><b>코드</b></summary>
 <div markdown="1">
@@ -540,9 +504,6 @@ country = Util.find_ip_country(user_ip)
 if BlockedCountryIP.objects.filter(user=self.target_user, country=country).exists():
     raise serializers.ValidationError(detail={"error": "해당 IP를 차단한 계정입니다."})
 ~~~
-
-<br>
-
 </div>
 </details>
 
