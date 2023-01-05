@@ -85,8 +85,6 @@
 ## 6. 트러블 슈팅
 ### 6.1. Serializer Request
 - 비밀번호 변경 기능을 구현 중 현재 비밀번호와 입력 비밀번호가 동일하지 않도록 로직을 구현하려고 serializer에서 요청한 유저의 비밀번호를 가져오기 위해 request를 사용하려고 했으나 몰랐습니다. 
-
-<br>
 - serializer를 검증할 때 dict로 request를 넘겨주면 된다는 사실을 알아 구현했습니다.
 
 <details>
