@@ -83,9 +83,7 @@
 <br>
 
 ## 6. 트러블 슈팅
-<details>
-<summary style="font-size:18px"><b>6.1. Serializer Request</b></summary>
-<div markdown="1">
+### 6.1. Serializer Request
 - 비밀번호 변경 기능을 구현 중 현재 비밀번호와 입력 비밀번호가 동일하지 않도록 로직을 구현하려고 serializer에서 요청한 유저의 비밀번호를 가져오기 위해 request를 사용하려고 했으나 몰랐습니다. 
 
 <br>
@@ -105,14 +103,10 @@ current_password = self.context.get("request").user.password
 
 </div>
 </details>
-</div>
-</details>
 
 <br>
 
-<details>
-<summary style="font-size:18px"><b>6.2. serializer validate error</b></summary>
-<div markdown="1">
+### 6.2. serializer validate error
 - 회원가입 기능을 구현하는 도중 drf는 기존 validate가 지정되어 있어 유효성 검증 로직을 구현해도 적용이 안됐습니다.
 
 <br>
@@ -156,9 +150,6 @@ extra_kwargs=
 'required': '닉네임을 입력해주세요.',
 'blank':'닉네임을 입력해주세요',}},}
 ~~~
-
-</div>
-</details>
 
 </div>
 </details>
