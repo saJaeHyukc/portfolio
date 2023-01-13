@@ -30,6 +30,7 @@
   - DRF 3.14.0
   - Django simple JWT 5.2.2
   - Django Channel 4.0.0
+  - Celery 5.2.7
 #### `Database`
   - PostgreSQL 14.5
 #### `Infra`
@@ -43,6 +44,7 @@
   - Nginx 1.23.2
   - Daphne
   - Redis 7.0.7
+  - Rabbit MQ 3.11
   - Github Action
 #### `Front-end`
   - Vanilla JS
