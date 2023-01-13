@@ -70,7 +70,7 @@
 
 <br>
 
-## 5. API 설계 | [Swagger API Docs](https://www.gaggamagga.tk)
+## 5. API 설계 | [Swagger API Docs](https://www.back-gaggamagga.shop)
 <details>
 <summary style="font-size: 15px;"><b>USER API</b></summary>
 <div markdown="1">
@@ -116,8 +116,9 @@
 </br>
 
 ## 7. 핵심 트러블 슈팅
-### 7.1. Email 전송 속도 향상
-- 저는 회원기능에 이메일 인증 기능을 구현했습니다. Django Email 전송 속도는 하나의 스레드를 사용함으로 많이 느렸습니다.
+### 7.1. Email 전송 속도 향상(비동기 처리)
+- 문제: 인증 이메일 전송 속도가 느림
+- 문제의 원인: 이메일 전송은 동기로 처리하기에 요청을 보내고 응답을 받을 때까지 기다림
 
 <details>
 <summary><b>기존 코드</b></summary>
@@ -131,27 +132,33 @@ def send_email(message):
 </div>
 </details>
 
-- 이것을 개선하기 위해 멀티스레드를 활용하여 작업가중치를 늘려 실행되지 않는 다른 스레드를 퍼뜨려 사용자에게 응답하는 경로가 실시간으로 처리하여 속도를 향상했습니다. 2.5 s -> 0.1 ms
+- 해결: 메시지 브로커 Rabbit MQ 와 Celery 활용으로 이메일 전송 비동기 처리 4.3s -> 4 ms 개선 
 
 <details>
 <summary><b>개선된 코드</b></summary>
 <div markdown="1">
 
 ~~~python
-import threading
- 
-class EmailThread(threading.Thread):
-    
-    def __init__(self, email): 
-        self.email = email 
-        threading.Thread.__init__(self) 
-        
-    def run(self):
-        self.email.send() 
+# users/utils.py
+message = {
+          "email_body": email_body,
+          "to_email": user.email,
+          "email_subject": "이메일 인증",
+       }
+send_email.delay(message)
 
+# users/task.py
+from __future__ import absolute_import, unicode_literals
+
+from celery import shared_task
+
+from django.core.mail.message import EmailMessage
+
+@shared_task
 def send_email(message):
     email = EmailMessage(subject=message["email_subject"], body=message["email_body"], to=[message["to_email"]])
-    EmailThread(email).start()
+    email.send()
+
 ~~~
 
 </div>
@@ -160,10 +167,14 @@ def send_email(message):
 <br>
 
 ### 7.2. 네이버 SMS 401 에러
-- 저는 회원관리 기능에 아이디 찾기를 구현하였습니다. 대부분의 사이트는 아이디 찾기를 인증번호를 이용한 로직을 많이 사용하였고 접근성이 용이한 네이버 SMS API를 사용하였습니다. 요청을 보냈을 때 401에러가 발생하였습니다.
+- 문제: 아이디 찾기 기능 구현 중 naver sms api에 요청을 보냈을 때 401 에러 발생
 
 ![ex_screenshot](./img/sms_error.png)
-- 오류를 원리적으로 접근하기 위해 요청했을 때 콘솔창으로 네트워크 부분을 확인했습니다. signature-v2부분이 계속 바뀌는 것을 확인이 되었고 암호화가 되어 그 값이 바뀌는 것을 확인했습니다. 
+- 문제의 원인: 
+1. 요청했을 때 콘솔창으로 네트워크 부분을 확인. 
+2. signature-v2부분이 암호화가 되어 값이 바뀜. 
+3. 요청보냈을 때 암호화를 하지않고 보낸 것이 원인
+
 <details>
 <summary><b>기존 코드</b></summary>
 <div markdown="1">
@@ -191,7 +202,7 @@ headers = {
 </div>
 </details>
 
-- 네이버 SMS API를 읽어보니  x-ncp-apigw-signature-v2에서 HMAC 암호화 알고리즘은 HmacSHA256 사용한다는 것을 알았고 암호화가 된 시크릿 키로 보내야 한다는 것을 알아 개선했습니다.
+-  해결: nabver sms api docs를 확인 후 x-ncp-apigw-signature-v2에서 HMAC 암호화 알고리즘은 HmacSHA256 사용을 파악하여 암호화가 된 시크릿키를 보내어 개선
 
 <details>
 <summary><b>개선된 코드</b></summary>
@@ -222,57 +233,15 @@ headers = {
 </div>
 </details>
 
+<br>
+
 ### 7.3. 토큰 인증 에러
-- 프론트에서 로그인 시 access token과 refresh token을 발급을 해주는데 서비스 이용 시 access token이 만료가 되었을 경우 refresh token으로 access token을 재발급 해주면 되지만 그 토큰이 유효한지 확인해주는 로직이 없었습니다.
-
-<details>
-<summary><b>기존 코드</b></summary>
-<div markdown="1">
-
-~~~python
-    # urls.py
-    path("api/token/", views.CustomTokenObtainPairView.as_view(), name="token_obtain_pair_view"),
-    path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh_view"),
-~~~
-
-~~~ javascript
-//Front Login Request
-async function Login() {
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
-
-    const response = await fetch(
-        `${backendBaseUrl}/users/api/token/`,
-        { 
-            headers: {
-                'content-type': 'application/json'
-            },
-            method: 'POST',
-            body: JSON.stringify({"username": username, "password": password})
-        }
-    )
-    const response_json = await response.json()
-    
-    if (response.status === 200) {
-        localStorage.setItem("access", response_json.access); 
-        localStorage.setItem("refresh", response_json.refresh);
-
-        const base64Url = response_json.access.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(
-            atob(base64).split('').map(function (c) {
-                return '%' + (
-                    '00' + c.charCodeAt(0).toString(16)
-                ).slice(-2);
-            }).join('')
-        );
-        localStorage.setItem("payload", jsonPayload);}}
-~~~
-
-</div>
-</details>
-
-- DRF Simple JWT에서 해답을 얻을 수 없을까 공식문서를 읽어보니 토큰 값을 확인해주는 로직이 있었습니다. 유효한 토큰일 경우 status 200 유효하지 않을 경우 status 401 Response결과로 프론트에서 로직을 구성했습니다.
+- 문제: client에서 서비스 이용 시 일정 시간이 지나면 개인 정보 undefined이 뜸
+- 문제의 원인: access token이 만료되어 데이터베이스 접근이 불가한 것을 파악
+- 해결: 
+1. refresh token으로 access token을 발급 하지만 refresh 토큰이 유효한지 확인해주는 로직 필요 
+2. simple jwt에서 verify token 로직 존재 유효한 토큰일 경우 200 유효하지 않을 경우 401 반환
+3. status code를 기준으로 프론트에서 요청보내어 로직 구현
 
 <details>
 <summary><b>개선된 코드</b></summary>
@@ -373,7 +342,8 @@ async function access_token_get() {
 
 ## 8. 피드백 반영
 ### 8.1. 비밀번호 변경 시 인증
-- 비밀번호 변경 시 개인정보가 보호받지 못하는 느낌입니다. 기존 비밀번호를 입력받아 확인하는 절차가 추가되면 좋을 것 같습니다.(피드백 내용)
+- 피드백 내용: 비밀번호 변경 시 개인정보가 보호받지 못하는 느낌입니다. 기존 비밀번호를 입력받아 확인하는 절차가 추가되면 좋을 것 같습니다.
+
 <details>
 <summary><b>기존 코드</b></summary>
 <div markdown="1">
@@ -388,7 +358,7 @@ def validate(self, data):
 </div>
 </details>
 
-- 해쉬 값을 확인하는 check_password 메소드를 활용하여 인증할 수 있는 기능을 추가했습니다.
+- 피드백 반영: 해쉬 값을 확인하는 check_password 메소드를 활용 후 기능 구현.
 
 <details>
 <summary><b>개선된 코드</b></summary>
@@ -422,7 +392,7 @@ def validate(self, data):
 
 
 ### 8.2. 자신이 작성한 게시글 신고됨
-- 작성자 게시글에 작성자가 신고할 수 있어요(피드백 내용)
+- 피드백 내용: 작성자 게시글에 작성자가 신고할 수 있어요
 
 <details>
 <summary><b>기존 코드</b></summary>
@@ -447,7 +417,7 @@ def post(self, request, place_id, review_id):
 </div>
 </details>
 
-- 요청 들어오는 유저와 작성자와 비교하여 400 status Response를 하도록 구현했습니다.
+- 피드백 반영: 요청 들어오는 유저와 작성자와 비교 후 400 status code 반환으로 해결
 
 <details>
 <summary><b>개선된 코드</b></summary>
@@ -478,10 +448,11 @@ def post(self, request, place_id, review_id):
 <br>
 
 ### 8.3. IP 주소 차단 기능
-- IP 주소 차단같은 기능이 있으면 좋을 것 같아요(피드백 내용)
-- IP의 정보를 알 수 있는 API를 활용하여 해당 나라 IP일 경우 차단되도록 기능 구현했습니다.
+- 피드백 내용: IP 주소 차단같은 기능이 있으면 좋을 것 같아요
+- 피드백 반영: IP 정보를 알 수 있는 API를 활용하여 해당 나라 IP일 경우 차단되도록 기능 구현
+
 <details>
-<summary><b>코드</b></summary>
+<summary><b>개선된 코드</b></summary>
 <div markdown="1">
 
 ~~~python
@@ -506,6 +477,7 @@ country = Util.find_ip_country(user_ip)
 if BlockedCountryIP.objects.filter(user=self.target_user, country=country).exists():
     raise serializers.ValidationError(detail={"error": "해당 IP를 차단한 계정입니다."})
 ~~~
+
 </div>
 </details>
 
