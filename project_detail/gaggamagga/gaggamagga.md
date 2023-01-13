@@ -111,7 +111,7 @@
 <br>
 
 ## 6. Architecture
-![ex_screenshot](./img/architecture.png)
+![ex_screenshot](./img/arch.png)
 
 </br>
 
