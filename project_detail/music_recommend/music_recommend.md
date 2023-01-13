@@ -90,9 +90,11 @@
 <summary><b>기존 코드</b></summary>
 <div markdown="1">
 ~~~python
+
 def send_email(message):
     email = EmailMessage(subject=message["email_subject"], body=message["email_body"], to=[message["to_email"]])
     email.send()
+
 ~~~
 </div>
 </details>
@@ -101,6 +103,7 @@ def send_email(message):
 <summary><b>개선된 코드</b></summary>
 <div markdown="1">
 ~~~python
+
 import threading
  
 class EmailThread(threading.Thread):
@@ -114,6 +117,7 @@ class EmailThread(threading.Thread):
 def send_email(message):
     email = EmailMessage(subject=message["email_subject"], body=message["email_body"], to=[message["to_email"]])
     EmailThread(email).start()
+
 ~~~
 </div>
 </details>
