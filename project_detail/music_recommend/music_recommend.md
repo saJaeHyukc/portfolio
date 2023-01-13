@@ -75,7 +75,7 @@
 <summary style="font-size: 18px;"><b>PLAYLIST API</b></summary> 
 <div markdown="1">
 
-![ex_screenshot](./img/API_Playlist.PNG)
+![ex_screenshot](./img/API_Playlist.png)
 
 </div>
 </details>
@@ -85,8 +85,8 @@
 ## 6. 트러블 슈팅
 ### 6.1. Email 전송 속도 향상
 
-- 저는 회원기능에 이메일 인증 기능을 구현했습니다. Django Email 전송 속도는 하나의 스레드를 사용함으로 많이 느렸습니다.
-
+- 문제: 비밀번호 찾기 기능 구현 중 이메일 전송 속도 느림
+- 문제의 원인: 스레드를 하나를 이용하기에 느린 것으로 파악
 <details>
 <summary><b>기존 코드</b></summary>
 <div markdown="1">
@@ -102,9 +102,9 @@ def send_email(message):
 </div>
 </details>
 
-- 이것을 개선하기 위해 멀티스레드를 활용하여 작업가중치를 늘려 실행되지 않는 다른 스레드를 퍼뜨려 사용자에게 응답하는 경로가 실시간으로 처리하여 속도를 향상했습니다. 2.5 s -> 0.1 ms
+- 해결: 멀티스레드 적용 후 작업가중치를 늘려 실행하지 않는 다른 스레드를 퍼뜨려 사용자에게 응답하는 경로가 실시간으로 처리하여 속도 향상 2.5s -> 0.1ms 
 
-<details>
+<details> 
 <summary><b>개선된 코드</b></summary>
 <div markdown="1">
 
@@ -132,8 +132,8 @@ def send_email(message):
 <br>
 
 ### 6.2. Serializer Request
-- 비밀번호 변경 기능을 구현 중 현재 비밀번호와 입력 비밀번호가 동일하지 않도록 로직을 구현하려고 serializer에서 요청한 유저의 비밀번호를 가져오기 위해 request를 사용하려고 했으나 몰랐습니다. 
-- serializer를 검증할 때 dict로 request를 넘겨주면 된다는 사실을 알아 구현했습니다.
+- 문제: 요청에 대한 정보를 serializers.py에 사용하는 방법 모름
+- 해결: serializer를 검증할 때 dict로 request를 넘겨주어 해결
 
 <details>
 <summary><b>코드</b></summary>
@@ -153,7 +153,8 @@ current_password = self.context.get("request").user.password
 <br>
 
 ### 6.3. serializer validate error
-- 회원가입 기능을 구현하는 도중 drf는 기존 validate가 지정되어 있어 유효성 검증 로직을 구현해도 적용이 안됐습니다.
+- 문제: drf 유효성 검증 로직 구현 안됨
+- 문제의 원인: drf에서 이미 제공하는 유효성 검증 로직이 있는 것으로 파악
 
 <br>
 
@@ -171,7 +172,8 @@ if nickname == '':
 </div>
 </details>
 
-- validate 커스터마이징을 하려면 중복된 값처리는 model에서 unique error처리를 해주고 빈 값과 필드 값이 비어있으면 serializer에서 error처리를 request와 blank 속성을 추가해주고 해당 필드값이 일치하지 않으면 invalid 속성을 주어 해결했습니다.
+- 해결: validate커스터마이징 시 unique 에러를 처리하고 싶으면 error message를 unique error에 대한 정의 해줌, 
+빈값과 필드값이 비어있으면 extra_kwargs를 사용하여 설정 변경함(required와 blank와 invlid 사용)
 
 <br>
 
@@ -202,7 +204,10 @@ extra_kwargs=
 <br>
 
 ## 7. 팀원 갈등
-- 팀 내부에서 기획 도중 팀원과 주제선정에 갈등이 있었는데 각자 하고 싶은 주제에 쉽게 결정을 내지 못하는 상황이였습니다. 제가 하고 싶은 주제를 팀원들에게 설득하기 위해 기획 설명(재미있는 기능)과 멜론 100위 크롤링한 데이터를 준비하여 보여주고 그 팀원도 저의 의견에 납득을 하고 저가 정한 주제로 결정이 되었습니다. 기획 단계에서 말하기 위해 추상적인 아이디어를 내는 것보다 팀원들에게 정확한 데이터와 설명으로 설득할 수 있다는 점을 배울 수 있어 좋았습니다.
+- 문제: 주제 선정에 갈등이 있어 쉽게 결정을 내리지 못하는 상황
+- 해결: 기획설명과 멜론 100위 크롤링 데이터를 준비하여 설득하여 납득 후 주제 결정
+- 깨달은 점: 추상적인 아이디어를 내는 것보다 정확한 데이터와 설명으로 설득할 수 있다는 점
+
 ![download](./melon_data%20.csv)
 <details>
 <summary><b>크롤링 코드</b></summary>
