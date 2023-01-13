@@ -90,6 +90,7 @@
 <details>
 <summary><b>기존 코드</b></summary>
 <div markdown="1">
+
 ~~~python
 
 def send_email(message):
@@ -97,6 +98,7 @@ def send_email(message):
     email.send()
 
 ~~~
+
 </div>
 </details>
 
@@ -105,6 +107,7 @@ def send_email(message):
 <details>
 <summary><b>개선된 코드</b></summary>
 <div markdown="1">
+
 ~~~python
 
 import threading
@@ -122,6 +125,7 @@ def send_email(message):
     EmailThread(email).start()
 
 ~~~
+
 </div>
 </details>
 
