@@ -86,6 +86,7 @@
 ### 6.1. Email 전송 속도 향상
 
 - 저는 회원기능에 이메일 인증 기능을 구현했습니다. Django Email 전송 속도는 하나의 스레드를 사용함으로 많이 느렸습니다.
+
 <details>
 <summary><b>기존 코드</b></summary>
 <div markdown="1">
@@ -98,7 +99,9 @@ def send_email(message):
 ~~~
 </div>
 </details>
+
 - 이것을 개선하기 위해 멀티스레드를 활용하여 작업가중치를 늘려 실행되지 않는 다른 스레드를 퍼뜨려 사용자에게 응답하는 경로가 실시간으로 처리하여 속도를 향상했습니다. 2.5 s -> 0.1 ms
+
 <details>
 <summary><b>개선된 코드</b></summary>
 <div markdown="1">
@@ -121,6 +124,7 @@ def send_email(message):
 ~~~
 </div>
 </details>
+
 <br>
 ### 6.2. Serializer Request
 - 비밀번호 변경 기능을 구현 중 현재 비밀번호와 입력 비밀번호가 동일하지 않도록 로직을 구현하려고 serializer에서 요청한 유저의 비밀번호를 가져오기 위해 request를 사용하려고 했으나 몰랐습니다. 
